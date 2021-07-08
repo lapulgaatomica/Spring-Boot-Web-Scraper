@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +25,18 @@ public class DailyMailColumnService {
     public void scrape(){
         List<Column> listOfLatestColumns = scraper.getLatestDailyMailColumns();
         for (Column column : listOfLatestColumns) {
-            try{
-                columnRepository.save(column);
-                log.info(column.toString() + " was saved");
-            }catch (Exception e){
-                log.error(e.getMessage());
+            if(columnRepository.findByTitle(column.getTitle()).isEmpty()
+                    || columnRepository.findByLink(column.getLink()).isEmpty()){
+
+                try{
+                    columnRepository.save(column);
+                    log.info(column.toString() + " was saved");
+                }catch (Exception e){
+                    log.error(e.getMessage());
+                }
+
+            }else{
+                log.warn("Column with that title or link already exists");
             }
         }
     }

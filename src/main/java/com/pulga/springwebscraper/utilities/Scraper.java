@@ -30,7 +30,6 @@ public class Scraper {
                 String title = linkElement.text();
                 Column column = new Column(title, link, author);
                 listOfLatestColumns.add(column);
-//                log.info(column.toString());
             }
         }catch (IOException e){
             log.error(e.getMessage());
