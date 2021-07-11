@@ -1,10 +1,11 @@
-package com.pulga.springwebscraper.services;
+package com.pulga.springwebscraper.configuration;
 
 import com.pulga.springwebscraper.entities.Column;
 import com.pulga.springwebscraper.repositories.ColumnRepository;
 import com.pulga.springwebscraper.utilities.Scraper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Configuration
 @RequiredArgsConstructor
 @Slf4j
 @EnableScheduling
-public class DailyMailColumnService {
+public class DailyMailColumnConfiguration {
 
     private final Scraper scraper;
     private final ColumnRepository columnRepository;
