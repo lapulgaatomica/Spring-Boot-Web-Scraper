@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Map;
+
 @SpringBootApplication
 @Slf4j
 public class SpringwebscraperApplication {
