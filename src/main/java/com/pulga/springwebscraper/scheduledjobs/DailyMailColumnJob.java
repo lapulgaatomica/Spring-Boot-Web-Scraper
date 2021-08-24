@@ -1,4 +1,4 @@
-package com.pulga.springwebscraper.configuration;
+package com.pulga.springwebscraper.scheduledjobs;
 
 import com.pulga.springwebscraper.entities.Column;
 import com.pulga.springwebscraper.repositories.ColumnRepository;
@@ -18,13 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @EnableScheduling
-public class DailyMailColumnConfiguration {
+public class DailyMailColumnJob {
 
     private final Scraper scraper;
     private final ColumnRepository columnRepository;
     private final EmailService emailService;
     @Value("${email.recipient}")
-    private String emailReceiver;
+    private String emailReceiver;//Application fails to start when declared final
 
     @Scheduled(fixedDelay = 60000)
     @Async
@@ -38,15 +38,13 @@ public class DailyMailColumnConfiguration {
                     columnRepository.save(column);
                     log.info(column.toString() + " was saved");
                     String email = "Hello  You have a new DailyMail column by "
-                            + column.getAuthor() + " with the title "
-                            + column.getTitle() + "\n To read, please click here: "
-                            + column.getLink() +
+                            + column.getAuthor() + " with the title " + column.getTitle() +
+                            "\n To read, please click here: " + column.getLink() +
                             "\n Sincerely, \n Your Web Scraper \n Note: replies to this email address are not monitored.";
                     emailService.send(emailReceiver, email);
                 }catch (Exception e){
                     log.error(e.getMessage());
                 }
-
             }else{
                 log.warn("Column with that title or link already exists");
             }

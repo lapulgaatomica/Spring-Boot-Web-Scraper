@@ -14,7 +14,7 @@
 	<name>springwebscraper</name>
 	<description>Spring Boot Web Scraper</description>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
