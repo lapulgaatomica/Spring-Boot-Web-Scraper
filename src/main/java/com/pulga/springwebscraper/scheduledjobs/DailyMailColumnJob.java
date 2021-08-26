@@ -31,12 +31,12 @@ public class DailyMailColumnJob {
     public void scrape(){
         List<Column> listOfLatestColumns = scraper.getLatestDailyMailColumns();
         for (Column column : listOfLatestColumns) {
-            boolean columnTitleExists = columnRepository.findByTitle(column.getTitle()).isEmpty();
-            boolean columnLinkExists = columnRepository.findByLink(column.getLink()).isEmpty();
-            if(columnTitleExists || columnLinkExists){
+            boolean columnTitleExists = columnRepository.titleExists(column.getTitle());
+            boolean columnLinkExists = columnRepository.linkExists(column.getLink());
+            if(!(columnTitleExists && columnLinkExists)){
                 try{
                     columnRepository.save(column);
-                    log.info(column.toString() + " was saved");
+                    log.info(column + " was saved");
                     String email = "Hello  You have a new DailyMail column by "
                             + column.getAuthor() + " with the title " + column.getTitle() +
                             "\n To read, please click here: " + column.getLink() +
@@ -46,7 +46,7 @@ public class DailyMailColumnJob {
                     log.error(e.getMessage());
                 }
             }else{
-                log.warn("Column with that title or link already exists");
+                log.warn("Column " + column + " has been saved previously");
             }
         }
     }
