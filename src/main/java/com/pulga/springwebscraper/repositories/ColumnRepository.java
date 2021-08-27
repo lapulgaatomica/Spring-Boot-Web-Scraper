@@ -23,7 +23,6 @@ public class ColumnRepository {
 
     public int save(Column column){
         String sql = "INSERT INTO COLUMN (AUTHOR, LINK, TITLE) VALUES (?, ?, ?)";
-
         return jdbcTemplate.update(sql,  column.getAuthor(), column.getLink(), column.getTitle());
     }
 }

@@ -35,8 +35,11 @@ public class DailyMailColumnJob {
             boolean columnLinkExists = columnRepository.linkExists(column.getLink());
             if(!(columnTitleExists && columnLinkExists)){
                 try{
-                    columnRepository.save(column);
-                    log.info(column + " was saved");
+                    if (columnRepository.save(column) == 1) {
+                        log.info(column + " was saved");
+                    } else {
+                        log.error(column + " was not saved");
+                    }
                     String email = "Hello  You have a new DailyMail column by "
                             + column.getAuthor() + " with the title " + column.getTitle() +
                             "\n To read, please click here: " + column.getLink() +
