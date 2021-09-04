@@ -34,7 +34,6 @@ public class Scraper {
         }catch (IOException e){
             log.error(e.getMessage());
         }
-
         return listOfLatestColumns;
     }
 }
