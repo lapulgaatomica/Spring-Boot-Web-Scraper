@@ -1,2 +1,4 @@
 # Spring-Boot-Web-Scraper
-The idea is to build a web scraper application that runs as a service on my local machine
+An application that scrapes my favorite news website for editorials and sends me an email after saving the editorial to the inmemory database.
+
+Requirements: Java 11, Maven
