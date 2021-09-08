@@ -24,7 +24,8 @@ public class DailyMailColumnJob {
     private final ColumnRepository columnRepository;
     private final EmailService emailService;
     @Value("${email.recipient}")
-    private String emailReceiver;//Application fails to start when declared final
+    private String emailReceiver;/* Application fails to start when declared final,
+    because only reference types can be autowired and a string is not really a reference type*/
 
     @Scheduled(fixedDelay = 60000)
     @Async

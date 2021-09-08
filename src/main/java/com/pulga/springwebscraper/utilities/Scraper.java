@@ -16,7 +16,9 @@ import java.util.List;
 @Component
 public class Scraper {
     public List<Column> getLatestDailyMailColumns(){
-        List<Column> listOfLatestColumns = new ArrayList<>();
+        List<Column> listOfLatestColumns = new ArrayList<>(20);/* Initial capacity set to 20 for better
+        performance because there are at most 20 columns that can be scraped so the List doesn't need to reallocate
+        memory space*/
         try{
             Document rawDocument = Jsoup.connect("https://www.dailymail.co.uk/columnists/index.html").get();
             Elements mostRecentColumns = rawDocument
